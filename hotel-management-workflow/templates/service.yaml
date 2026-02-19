@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "hotel-management-workflow.fullname" . }}
+  labels:
+    {{- include "hotel-management-workflow.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "hotel-management-workflow.selectorLabels" . | nindent 4 }}
